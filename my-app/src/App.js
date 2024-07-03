@@ -160,6 +160,7 @@ function App() {
     }
   };
 
+  // this is another way to create and handle the route
   // const router = createBrowserRouter([
   //   {
   //     path: "/",
@@ -173,7 +174,7 @@ function App() {
   return (
     <>
       <Navbar title="Text Changer" about="About" home="Home" mode={mode} toggleMode={toggleMode} />
-      <div style={{ position: 'fixed', top: 14, left: 0, right: 0, zIndex: 1000 }}>
+      <div style={{ position: 'fixed', top: 75, left: 0, right: 0, zIndex: 1000 }}>
         <Alert alert={alert} dismissAlert={dismissAlert} />
       </div>
       <div className="container m-3 p-5">

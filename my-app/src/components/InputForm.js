@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export default function InputForm(props) {
-    const [text, setText] = useState("I am your default text");
+    const [text, setText] = useState("");
     const [modal, setModal] = useState(false);
     const [history, setHistory] = useState({
         past: [],
@@ -110,25 +110,25 @@ export default function InputForm(props) {
                         placeholder='Write the text you want to analize'
                         spellCheck="true"
                     ></textarea>
-                    <button onClick={handleClickToUpperCase} className='btn btn-primary my-4' style={props.mode}>Convert to upper case</button>
-                    <button onClick={handleClickToLowerCase} className='btn btn-primary my-4 mx-2' style={props.mode}>Convert to lower case</button>
-                    <button onClick={clearText} className='btn btn-primary my-4 mx-2' style={props.mode}>Clear Text</button>
+                    <button disabled = {text.length === 0 }onClick={handleClickToUpperCase} className='btn btn-primary my-4' style={props.mode}>Convert to upper case</button>
+                    <button disabled = {text.length === 0 }onClick={handleClickToLowerCase} className='btn btn-primary my-4 mx-2' style={props.mode}>Convert to lower case</button>
+                    <button disabled = {text.length === 0 }onClick={clearText} className='btn btn-primary my-4 mx-2' style={props.mode}>Clear Text</button>
                 </div>
-                <button onClick={handleUndo} className='btn btn-secondary my-2 mx-1' style={props.mode} >Undo</button>
-                <button onClick={handleRedo} className='btn btn-secondary my-2 mx-1' style={props.mode}>Redo</button>
+                <button disabled = {text.length === 0 }onClick={handleUndo} className='btn btn-secondary my-2 mx-1' style={props.mode} >Undo</button>
+                <button disabled = {text.length === 0 }onClick={handleRedo} className='btn btn-secondary my-2 mx-1' style={props.mode}>Redo</button>
             </div>
             <div className="container" style={props.mode}>
                 <h2>This is the result of your text</h2>
                 <p>{text.trim() === "" ? "0 words" : `${text.trim().split(/\s+/).length} words, ${text.trim().length} characters`}</p>
                 <p>{text.trim().split(" ").length  * 0.008} min read time</p>
 
-                <button type="button" style={props.mode} onClick={launchModal} className="btn btn-primary">
+                <button disabled = {text.length === 0 }type="button" style={props.mode} onClick={launchModal} className="btn btn-primary">
                     Preview
                 </button>
-                <button style={props.mode} type="button" onClick={speakText} className="btn btn-secondary ml-2 mx-2">
+                <button disabled = {text.length === 0 }style={props.mode} type="button" onClick={speakText} className="btn btn-secondary ml-2 mx-2">
                     Speak
                 </button>
-                <button style={props.mode} type="button" onClick={copyText} className="btn btn-secondary ml-2 mx-2">
+                <button disabled = {text.length === 0 }style={props.mode} type="button" onClick={copyText} className="btn btn-secondary ml-2 mx-2">
                     Copy
                 </button>
                 {modal && (
@@ -137,7 +137,7 @@ export default function InputForm(props) {
                             <div className="modal-content">
                                 <div className="modal-header">
                                     <h5 className="modal-title" style={props.mode} id="exampleModalLongTitle">Perview your text</h5>
-                                    <button type="button" className="close" onClick={closeModal} aria-label="Close">
+                                    <button disabled = {text.length === 0 }type="button" className="close" onClick={closeModal} aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -145,7 +145,7 @@ export default function InputForm(props) {
                                     <p>{text.length > 0 ? text : "Enter something"}</p>
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
+                                    <button disabled = {text.length === 0 }type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
                                 </div>
                             </div>
                         </div>
