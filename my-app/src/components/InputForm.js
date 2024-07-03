@@ -21,12 +21,15 @@ export default function InputForm(props) {
         const newText = text.toUpperCase();
         setText(newText);
         updateHistory(newText);
+        props.showAlert("Converted to Upper Case successfully!", "success");
     };
 
     const handleClickToLowerCase = () => {
         const newText = text.toLowerCase();
         setText(newText);
         updateHistory(newText);
+        props.showAlert("Converted to Lower Case successfully!", "success");
+
     };
 
     const launchModal = () => {
@@ -88,55 +91,58 @@ export default function InputForm(props) {
 
     const copyText = () => {
         navigator.clipboard.writeText(text);
+        props.showAlert("Text coppied to the clipboard!", "success");
+
     }
 
     return (
         <>
-            <div>
+            <div style={props.mode}>
                 <h1 className='mb-4'>{props.heading}</h1>
                 <div className="form-group">
                     <textarea
+                        style={props.mode}
                         className="form-control"
                         value={text}
                         onChange={handleOnChanges}
                         id="mytext"
                         rows="6"
-                        placeholder='Write the text you want to change'
+                        placeholder='Write the text you want to analize'
                         spellCheck="true"
                     ></textarea>
-                    <button onClick={handleClickToUpperCase} className='btn btn-primary my-4'>Convert to upper case</button>
-                    <button onClick={handleClickToLowerCase} className='btn btn-primary my-4 mx-2'>Convert to lower case</button>
-                    <button onClick={clearText} className='btn btn-primary my-4 mx-2'>Clear Text</button>
+                    <button onClick={handleClickToUpperCase} className='btn btn-primary my-4' style={props.mode}>Convert to upper case</button>
+                    <button onClick={handleClickToLowerCase} className='btn btn-primary my-4 mx-2' style={props.mode}>Convert to lower case</button>
+                    <button onClick={clearText} className='btn btn-primary my-4 mx-2' style={props.mode}>Clear Text</button>
                 </div>
-                <button onClick={handleUndo} className='btn btn-secondary my-2 mx-1'>Undo</button>
-                <button onClick={handleRedo} className='btn btn-secondary my-2 mx-1'>Redo</button>
+                <button onClick={handleUndo} className='btn btn-secondary my-2 mx-1' style={props.mode} >Undo</button>
+                <button onClick={handleRedo} className='btn btn-secondary my-2 mx-1' style={props.mode}>Redo</button>
             </div>
-            <div className="container">
+            <div className="container" style={props.mode}>
                 <h2>This is the result of your text</h2>
-                <p>{text.split(" ").length} words, {text.length} characters</p>
-                <p>{text.split(" ").length * 0.008} min read time</p>
+                <p>{text.trim() === "" ? "0 words" : `${text.trim().split(/\s+/).length} words, ${text.trim().length} characters`}</p>
+                <p>{text.trim().split(" ").length  * 0.008} min read time</p>
 
-                <button type="button" onClick={launchModal} className="btn btn-primary">
+                <button type="button" style={props.mode} onClick={launchModal} className="btn btn-primary">
                     Preview
                 </button>
-                <button type="button" onClick={speakText} className="btn btn-secondary ml-2 mx-2">
+                <button style={props.mode} type="button" onClick={speakText} className="btn btn-secondary ml-2 mx-2">
                     Speak
                 </button>
-                <button type="button" onClick={copyText} className="btn btn-secondary ml-2 mx-2">
+                <button style={props.mode} type="button" onClick={copyText} className="btn btn-secondary ml-2 mx-2">
                     Copy
                 </button>
                 {modal && (
-                    <div className="modal fade show d-block" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div className="modal fade show d-block" style={props.mode} id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div className="modal-dialog modal-dialog-centered" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLongTitle">Perview your text</h5>
+                                    <h5 className="modal-title" style={props.mode} id="exampleModalLongTitle">Perview your text</h5>
                                     <button type="button" className="close" onClick={closeModal} aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div className="modal-body">
-                                    {text}
+                                <div className="modal-body" style={props.mode}>
+                                    <p>{text.length > 0 ? text : "Enter something"}</p>
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
