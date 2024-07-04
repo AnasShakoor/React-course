@@ -75,7 +75,7 @@
 //   ]);
 //   return (
 //     <>
-    
+
 //       <Navbar title="Text Changer" about="About" home="Home" mode={mode} toggleMode={toggleMode} />
 //       <div style={{ position: 'fixed', top: 14, left: 0, right: 0, zIndex: 1000 }}>
 //         <Alert alert={alert} dismissAlert={dismissAlert} />
@@ -140,7 +140,7 @@ function App() {
   };
 
   useEffect(() => {
-    document.body.style.backgroundColor = mode.backgroundColor;
+    document.body.style.backgroundColor = 'brown';
   }, [mode.backgroundColor]);
 
   const toggleMode = (event) => {
@@ -178,10 +178,14 @@ function App() {
         <Alert alert={alert} dismissAlert={dismissAlert} />
       </div>
       <div className="container m-3 p-5">
-      <Routes>
-      <Route exact path="/" element={ <InputForm heading="Enter your text here" mode={mode} showAlert={showAlert} /> } />
-      <Route exact path="/about" element={ <About/> } />
-      </Routes>
+        <Routes>
+          <Route exact path="/" element={
+            <InputForm heading="Enter your text here" mode={mode} showAlert={showAlert} />
+          } />
+          <Route exact path="/about" element=
+            {<About />}
+          />
+        </Routes>
       </div>
     </>
   );
